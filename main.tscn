@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cyenk78g0lmpy" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://capog6bmi30mp" path="res://object/armchair.tscn" id="2_h2yge"]
 [ext_resource type="Script" uid="uid://df604skibtv6t" path="res://script/orbit_cam.gd" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://da5ru5qcmjuug" path="res://object/particle.tscn" id="4_1bvp3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -27,6 +28,7 @@ shadow_enabled = true
 environment = SubResource("Environment_1bvp3")
 
 [node name="CleanableObject" type="Marker3D" parent="." unique_id=286317715]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -1, 0)
 
 [node name="Armchair" parent="CleanableObject" unique_id=31826517 instance=ExtResource("2_h2yge")]
@@ -39,3 +41,7 @@ script = ExtResource("3_h2yge")
 [node name="Camera3D" type="Camera3D" parent="Pivot" unique_id=1915024707]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.1106546)
+
+[node name="WaterParticles" parent="." unique_id=1817565855 instance=ExtResource("4_1bvp3")]
+unique_name_in_owner = true
+visible = false

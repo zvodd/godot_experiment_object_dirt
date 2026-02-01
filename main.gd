@@ -4,6 +4,8 @@ extends Node3D
 
 @onready var pivot: Node3D = %Pivot
 @onready var camera_3d: Camera3D = %Camera3D
+@onready var water_particles: Node3D = %WaterParticles
+@onready var cleanable_object: Marker3D = %CleanableObject
 
 var count = 0
 
@@ -15,6 +17,10 @@ func _physics_process(delta):
 	match [pivot.mouse_lock, lmb_state]:
 		[false, true]:
 			proc_mouse_raycast()
+			water_particles.visible = true
+		[_, _]:
+			water_particles.visible = false
+
 
 
 func proc_mouse_raycast():
@@ -34,10 +40,25 @@ func proc_mouse_raycast():
 		print(intersection, get_world_3d().space.get_id())
 		count += 1
 	if intersection:
-		var position = intersection.get("position")
+		var pos = intersection.get("position")
 		var normal = intersection.get("normal")
-		print(position)
-		debug_line(position, position + normal * 0.2)
+		#print(pos)
+		debug_line(pos, pos + normal * 0.2)
+		water_particles.global_position = pos
+		
+		#water_particles.rotation = (pos - normal).normalized()
+		
+		var direction_global = (pos + normal).normalized()    
+		# 2. Create a Global Basis looking in that direction
+		# Basis.looking_at takes a DIRECTION, not a target position
+		var target_global_basis = Basis.looking_at(direction_global, Vector3.UP)
+		# 3. Convert to Local Space
+		var target_local_basis = target_global_basis
+		
+		var parent_global_basis = cleanable_object.global_basis
+		target_local_basis = parent_global_basis.inverse() * target_global_basis
+		
+		water_particles.basis = Basis(target_local_basis.get_rotation_quaternion())
 
 
 func debug_line(pos1: Vector3, pos2: Vector3, color = Color.WHITE_SMOKE) -> MeshInstance3D:

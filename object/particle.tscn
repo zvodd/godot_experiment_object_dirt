@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://da5ru5qcmjuug"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o6qee"]
+direction = Vector3(0, -1, 0)
+spread = 3.367
+initial_velocity_min = 8.26
+initial_velocity_max = 8.26
+scale_min = 0.0
+scale_over_velocity_min = 0.099999994
+scale_over_velocity_max = 1.0
+turbulence_noise_strength = 0.2
+turbulence_noise_scale = 0.1
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.34
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qiyto"]
+diffuse_mode = 2
+disable_fog = true
+albedo_color = Color(0.45105457, 0.9992576, 0.9999997, 1)
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.4
+clearcoat_enabled = true
+clearcoat_roughness = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_6wiy6"]
+material = SubResource("StandardMaterial3D_qiyto")
+radius = 0.1
+height = 0.2
+radial_segments = 8
+rings = 4
+is_hemisphere = true
+
+[sub_resource type="GDScript" id="GDScript_o6qee"]
+resource_name = "debugview"
+script/source = "extends Marker3D
+
+func _ready() -> void:
+	var mesh_instance := MeshInstance3D.new()
+	var immediate_mesh := ImmediateMesh.new()
+	var material := ORMMaterial3D.new()
+	
+	mesh_instance.mesh = immediate_mesh
+
+	immediate_mesh.surface_begin(Mesh.PRIMITIVE_LINES, material)
+	immediate_mesh.surface_add_vertex(Vector3(0,0,0))
+	immediate_mesh.surface_add_vertex(Vector3(0,-5,0))
+	immediate_mesh.surface_end()
+	
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	material.albedo_color = Color(0.835, 0.002, 0.001, 1.0)
+	
+	add_child(mesh_instance)
+"
+
+[node name="WaterParticles" type="Node3D" unique_id=1817565855]
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="." unique_id=1633128523]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.96397924, 0)
+size = Vector3(0.8, 1.9344727, 0.8)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1818873500]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2219274, 0)
+amount = 18
+lifetime = 0.48
+randomness = 0.11
+process_material = SubResource("ParticleProcessMaterial_o6qee")
+draw_pass_1 = SubResource("SphereMesh_6wiy6")
+
+[node name="Marker3D" type="Marker3D" parent="GPUParticles3D" unique_id=911380512]
+script = SubResource("GDScript_o6qee")
