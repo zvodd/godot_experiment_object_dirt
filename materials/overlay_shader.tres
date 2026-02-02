@@ -36,7 +36,7 @@ void fragment() {
 	vec2 base_uv = UV2;
 
 	vec4 albedo_tex = texture(texture_albedo, base_uv);
-	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	ALBEDO = albedo_tex.rgb;
 
 	float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
 	METALLIC = metallic_tex * metallic;
@@ -54,21 +54,13 @@ void fragment() {
 }
 "
 
-[sub_resource type="Gradient" id="Gradient_7dfoa"]
-offsets = PackedFloat32Array(0, 0.19197208, 0.530541, 1)
-colors = PackedColorArray(0, 0, 0, 0, 0.23921569, 0.08235294, 0.2, 0.03529412, 0.98521155, 0.9821624, 0.98444927, 0.98124766, 1, 1, 1, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_wdjpi"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rg34b"]
-noise = SubResource("FastNoiseLite_wdjpi")
-color_ramp = SubResource("Gradient_7dfoa")
+[sub_resource type="ImageTexture" id="ImageTexture_uelo5"]
 
 [resource]
 render_priority = 0
 shader = SubResource("Shader_uelo5")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/texture_albedo = SubResource("NoiseTexture2D_rg34b")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/texture_albedo = SubResource("ImageTexture_uelo5")
 shader_parameter/albedo_texture_size = Vector2i(512, 512)
 shader_parameter/point_size = 1.0000000149012
 shader_parameter/roughness = 1.0

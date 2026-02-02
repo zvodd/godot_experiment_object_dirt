@@ -44,6 +44,8 @@ func proc_mouse_raycast():
 		var normal = intersection.get("normal")
 		#print(pos)
 		debug_line(pos, pos + normal * 0.2)
+		
+		## Water Particles
 		water_particles.global_position = pos
 		
 		#water_particles.rotation = (pos - normal).normalized()
@@ -59,6 +61,10 @@ func proc_mouse_raycast():
 		target_local_basis = parent_global_basis.inverse() * target_global_basis
 		
 		water_particles.basis = Basis(target_local_basis.get_rotation_quaternion())
+		
+		## Send to paint
+		var target =  %CleanableObject/Armchair
+		
 
 
 func debug_line(pos1: Vector3, pos2: Vector3, color = Color.WHITE_SMOKE) -> MeshInstance3D:
