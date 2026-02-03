@@ -22,7 +22,7 @@ func _ready() -> void:
 	image.copy_from(init_dirt_img)
 	
 	image.convert(Image.FORMAT_RGBA8)
-	
+		
 	imagetex = ImageTexture.create_from_image(image)
 	ov_mat.set_shader_parameter("texture_albedo", imagetex)
 	

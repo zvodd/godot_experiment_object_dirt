@@ -49,8 +49,7 @@ func proc_mouse_raycast():
 		water_particles.global_position = pos
 
 		## Send to paint
-		var target =  %CleanableObject/Armchair
-		target.erase_dirt_from_global_pos(pos)
+		cleanable_object.erase_dirt_from_global_pos(pos)
 		
 
 

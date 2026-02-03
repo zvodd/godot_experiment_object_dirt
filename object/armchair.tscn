@@ -1,12 +1,10 @@
 [gd_scene format=3 uid="uid://capog6bmi30mp"]
 
-[ext_resource type="Script" uid="uid://q5ilwr68goab" path="res://script/bhv_armchair.gd" id="1_rg34b"]
 [ext_resource type="Material" uid="uid://g31y7x8efpd5" path="res://materials/overlay_shader.tres" id="1_wdjpi"]
 [ext_resource type="ArrayMesh" uid="uid://cknqmt5kagoiw" path="res://meshes/armchairmesh.res" id="3_rg34b"]
 [ext_resource type="Shape3D" uid="uid://cotbvr8qm7ogl" path="res://meshes/Armchair_collision.tres" id="4_sixww"]
 
 [node name="Armchair" type="StaticBody3D" unique_id=401818508]
-script = ExtResource("1_rg34b")
 
 [node name="Armchairmesh" type="MeshInstance3D" parent="." unique_id=1737120777]
 material_overlay = ExtResource("1_wdjpi")
