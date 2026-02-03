@@ -1,16 +1,16 @@
 class_name CleanableObjectHolder
 extends Node3D
 
+@export var init_dirt_img = preload("res://materials/perlin15 _250.png")
+@export var init_brush_img = preload("res://materials/GradientBrushCircl_16x16.png")
+
 # _onready vars
 var objbody : PhysicsBody3D
 var mesh_instance: MeshInstance3D 
 var ov_mat : ShaderMaterial 
 
-const init_dirt_img = preload("res://materials/perlin15 _250.png")
-const init_brush_img = preload("res://materials/GradientBrushCircl_16x16.png")
-
+# VARS
 var mesh_data = MeshDataTool.new()
-
 var image : Image = Image.new()
 var imagetex : ImageTexture
 var brush_mask : Image = Image.new()
@@ -61,12 +61,13 @@ func _ready() -> void:
 			brush_mask.set_pixel(x, y, Color(0, 0, 0, 1.0 - p.r))
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		var ev = event as InputEventKey
 		if ev.keycode == KEY_SPACE:
 			var dims : Vector2 = imagetex.get_size()
 			var rloc =  Vector2i(randi_range(0, dims.x), randi_range(0, dims.y))
+			print("erase %v" %rloc)
 			erase_dirt(rloc)
 
 ## pos: Center of the brush in pixel coordinates

@@ -29,11 +29,11 @@ uniform vec3 uv2_scale;
 uniform vec3 uv2_offset;
 
 void vertex() {
-	UV2 = UV2 * uv1_scale.xy + uv1_scale.xy;
+	UV = UV * uv1_scale.xy + uv1_scale.xy;
 }
 
 void fragment() {
-	vec2 base_uv = UV2;
+	vec2 base_uv = UV;
 
 	vec4 albedo_tex = texture(texture_albedo, base_uv);
 	ALBEDO = albedo.rgb * albedo_tex.rgb;
@@ -54,13 +54,10 @@ void fragment() {
 }
 "
 
-[sub_resource type="ImageTexture" id="ImageTexture_uelo5"]
-
 [resource]
 render_priority = 0
 shader = SubResource("Shader_uelo5")
 shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/texture_albedo = SubResource("ImageTexture_uelo5")
 shader_parameter/albedo_texture_size = Vector2i(512, 512)
 shader_parameter/point_size = 1.0000000149012
 shader_parameter/roughness = 1.0
