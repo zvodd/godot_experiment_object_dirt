@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://87r8ajuf5eoa"]
+
+[ext_resource type="Material" uid="uid://g31y7x8efpd5" path="res://materials/overlay_shader.tres" id="1_sp23k"]
+[ext_resource type="ArrayMesh" uid="uid://c33ph4cbofcl3" path="res://models/float_03.obj" id="2_aotli"]
+[ext_resource type="Shape3D" uid="uid://dgfymohjiy5kv" path="res://meshes/col_float03.shape" id="3_ucgfi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_272bh"]
+albedo_color = Color(1, 0.3254902, 0.14509805, 1)
+metallic_specular = 0.35
+
+[node name="PoolFloat" type="StaticBody3D" unique_id=1243150777]
+
+[node name="Float03" type="MeshInstance3D" parent="." unique_id=527941091]
+transform = Transform3D(0.06775271, 0.20828635, 0.9757184, -0.950954, 0.30933237, 3.9472896e-09, -0.3018213, -0.9278633, 0.21902883, 0, 0, 0)
+material_overlay = ExtResource("1_sp23k")
+mesh = ExtResource("2_aotli")
+surface_material_override/0 = SubResource("StandardMaterial3D_272bh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1088132074]
+transform = Transform3D(0.06775271, 0.20828635, 0.9757184, -0.950954, 0.30933237, 3.9472896e-09, -0.3018213, -0.9278633, 0.21902883, 0, 0, 0)
+shape = ExtResource("3_ucgfi")

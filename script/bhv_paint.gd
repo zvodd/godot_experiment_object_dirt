@@ -5,7 +5,7 @@ extends Node3D
 @onready var pivot: Node3D = %Pivot
 @onready var camera_3d: Camera3D = %Camera3D
 @onready var water_particles: Node3D = %WaterParticles
-@onready var cleanable_object: Marker3D = %CleanableObject
+@onready var cleanable_object: CleanableObjectHolder = %CleanableObject
 
 var count = 0
 
@@ -42,6 +42,7 @@ func proc_mouse_raycast():
 	if intersection:
 		var pos = intersection.get("position")
 		var normal = intersection.get("normal")
+		var faceidx = intersection.get("face_index")
 		#print(pos)
 		debug_line(pos, pos + normal * 0.2)
 		
@@ -49,8 +50,11 @@ func proc_mouse_raycast():
 		water_particles.global_position = pos
 
 		## Send to paint
-		cleanable_object.erase_dirt_from_global_pos(pos)
+		print(faceidx)
+		#cleanable_object.erase_dirt_from_face(pos, faceidx)
 		
+
+
 
 
 func debug_line(pos1: Vector3, pos2: Vector3, color = Color.WHITE_SMOKE) -> MeshInstance3D:
