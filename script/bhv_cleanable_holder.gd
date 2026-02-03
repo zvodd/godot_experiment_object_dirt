@@ -14,6 +14,7 @@ var mesh_data = MeshDataTool.new()
 var image : Image = Image.new()
 var imagetex : ImageTexture
 var brush_mask : Image = Image.new()
+var image_dims : Vector2
 
 func _onready_vars() -> void:
 	for child in get_children():
@@ -40,6 +41,8 @@ func _ready() -> void:
 	image.convert(Image.FORMAT_RGBA8)
 		
 	imagetex = ImageTexture.create_from_image(image)
+	image_dims = imagetex.get_size()
+	
 	ov_mat.set_shader_parameter("texture_albedo", imagetex)
 	
 	# 2. Setup brush: Convert brightness to Alpha
@@ -65,18 +68,26 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		var ev = event as InputEventKey
 		if ev.keycode == KEY_SPACE:
-			var dims : Vector2 = imagetex.get_size()
-			var rloc =  Vector2i(randi_range(0, dims.x), randi_range(0, dims.y))
-			print("erase %v" %rloc)
+			var rloc =  Vector2(randf(), randf())
 			erase_dirt(rloc)
 
-## pos: Center of the brush in pixel coordinates
-func erase_dirt(pos: Vector2i)  -> void:
-	var brush_size = brush_mask.get_size()
-	var top_left = pos - (brush_size / 2)
+## pos: The UV coordinate (0.0 to 1.0) from a raycast or collision
+func erase_dirt(uv: Vector2) -> void:
+	# 1. Convert UV to absolute pixel coordinates
+	var img_size = image.get_size()
+	var pixel_pos = Vector2i(
+		floor(uv.x * img_size.x),
+		floor(uv.y * img_size.y)
+	)
 	
-	# blit_rect_mask(src_image, mask_image, src_rect, dest_point)
-	# This replaces the pixels in 'image' with pixels from 'brush_mask'
+	var brush_size = brush_mask.get_size()
+	
+	# 2. Center the brush on the pixel_pos
+	# (e.g., if brush is 16x16, top_left is pixel_pos - 8)
+	var top_left = pixel_pos - (brush_size / 2)
+	
+	# 3. Perform the blit
+	# Ensure image and brush_mask are still the same format (RGBA8)
 	image.blit_rect_mask(
 		brush_mask, 
 		brush_mask, 
@@ -84,7 +95,7 @@ func erase_dirt(pos: Vector2i)  -> void:
 		top_left
 	)
 	
-	# Push update to GPU
+	# 4. Push update to GPU
 	imagetex.update(image)
 
 #TODO
@@ -110,5 +121,4 @@ func erase_dirt_from_face(hit_pos:Vector3, face_idx:int) -> void:
 	
 	# 6. Final UV interpolation
 	var final_uv = uv1 * bary.x + uv2 * bary.y + uv3 * bary.z
-	print(final_uv)
 	erase_dirt (final_uv)

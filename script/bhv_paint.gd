@@ -50,8 +50,7 @@ func proc_mouse_raycast():
 		water_particles.global_position = pos
 
 		## Send to paint
-		print(faceidx)
-		#cleanable_object.erase_dirt_from_face(pos, faceidx)
+		cleanable_object.erase_dirt_from_face(pos, faceidx)
 
 
 
