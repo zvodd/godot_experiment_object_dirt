@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://clw6xttksis0d"
+path="res://.godot/imported/GradientBrushCircl_16x16.png-1831ad3dcf897946e7d9beadc94f2710.image"
+
+[deps]
+
+source_file="res://materials/GradientBrushCircl_16x16.png"
+dest_files=["res://.godot/imported/GradientBrushCircl_16x16.png-1831ad3dcf897946e7d9beadc94f2710.image"]
+
+[params]
+

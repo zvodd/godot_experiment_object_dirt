@@ -1,24 +1,14 @@
 [gd_scene format=3 uid="uid://cw0tx88fwjrgl"]
 
-[ext_resource type="Script" uid="uid://cyenk78g0lmpy" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://cyenk78g0lmpy" path="res://script/bhv_paint.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://capog6bmi30mp" path="res://object/armchair.tscn" id="2_h2yge"]
+[ext_resource type="Environment" uid="uid://dri63rp7mm5yu" path="res://materials/env_hotpink_amazing.tres" id="2_lquwl"]
 [ext_resource type="Script" uid="uid://df604skibtv6t" path="res://script/bhv_orbit_cam.gd" id="3_h2yge"]
-[ext_resource type="Script" uid="uid://q5ilwr68goab" path="res://script/bhv_armchair.gd" id="3_lquwl"]
 [ext_resource type="PackedScene" uid="uid://da5ru5qcmjuug" path="res://object/particle.tscn" id="4_1bvp3"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_h2yge"]
-sky_material = SubResource("ProceduralSkyMaterial_0xm2m")
-
-[sub_resource type="Environment" id="Environment_1bvp3"]
-background_mode = 2
-sky = SubResource("Sky_h2yge")
-tonemap_mode = 2
-
 [node name="Main" type="Node3D" unique_id=1539786103]
+
+[node name="InteractivePaint" type="Node3D" parent="." unique_id=1364195981]
 script = ExtResource("1_0xm2m")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2142097458]
@@ -26,7 +16,7 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=426892989]
-environment = SubResource("Environment_1bvp3")
+environment = ExtResource("2_lquwl")
 
 [node name="CleanableObject" type="Marker3D" parent="." unique_id=286317715]
 unique_name_in_owner = true
@@ -34,7 +24,6 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -
 
 [node name="Armchair" parent="CleanableObject" unique_id=31826517 instance=ExtResource("2_h2yge")]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
-script = ExtResource("3_lquwl")
 
 [node name="Pivot" type="Node3D" parent="." unique_id=376242374]
 unique_name_in_owner = true
@@ -47,3 +36,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.1106546)
 [node name="WaterParticles" parent="." unique_id=1817565855 instance=ExtResource("4_1bvp3")]
 unique_name_in_owner = true
 visible = false
+
+[node name="Node" type="Node" parent="." unique_id=758712335]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Node" unique_id=876345733]
+transform = Transform3D(1, 0, 0, 0, 0.98928255, -0.14601396, 0, 0.14601396, 0.98928255, 3.5678635, -5.595946, -0.48036718)
+size = Vector3(15.104248, 0.805542, 11.870361)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Node" unique_id=1813181009]
+transform = Transform3D(0.96321887, -0.26871812, 0, 0.21923505, 0.785847, -0.57825637, 0.15538797, 0.55698746, 0.8158551, 3.1610107, -4.5804954, -13.663347)
+size = Vector3(15.104248, 0.805542, 4.813965)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Node" unique_id=72721570]
+transform = Transform3D(0.963219, -0.26871815, 0, -0.100202486, -0.35917526, -0.92787534, 0.24933696, 0.8937472, -0.3728907, 19.178555, 0.7712245, -3.5969505)
+size = Vector3(15.104248, 0.805542, 4.813965)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Node" unique_id=1301748099]
+transform = Transform3D(0.26649827, 0.9638354, 0, -0.9638354, 0.26649827, 0, 0, 0, 1, -1.9455566, -0.097229004, -4.6300244)
+size = Vector3(4.8911133, 0.805542, 1)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Node" unique_id=15793228]
+transform = Transform3D(-0.18828987, 0.9821135, 0, -0.8287755, -0.15889205, 0.5365487, 0.5269517, 0.10102668, 0.8438694, 1.9820995, -0.097229004, -4.6300244)
+size = Vector3(4.8911133, 0.805542, 1)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Node" unique_id=1311284617]
+transform = Transform3D(-0.18828987, 0.9821135, 0, -0.86642945, -0.16611105, -0.4708579, -0.4624359, -0.08865777, 0.88220906, 7.729851, -0.097229004, -4.6300244)
+size = Vector3(4.8911133, 0.805542, 1)

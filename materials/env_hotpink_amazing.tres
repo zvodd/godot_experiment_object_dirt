@@ -1,0 +1,25 @@
+[gd_resource type="Environment" format=3 uid="uid://dri63rp7mm5yu"]
+
+[sub_resource type="Sky" id="1"]
+
+[resource]
+background_mode = 2
+background_color = Color(0.913725, 0.258824, 0.411765, 1)
+sky = SubResource("1")
+ambient_light_color = Color(0.0862745, 0.368627, 0.490196, 1)
+ambient_light_sky_contribution = 0.0
+tonemap_mode = 3
+ssao_enabled = true
+glow_enabled = true
+glow_intensity = 0.63
+glow_bloom = 0.11
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.9137255, 0.25882354, 0.4117647, 1)
+fog_density = 1.0
+fog_height_density = 0.2092
+fog_depth_curve = 0.07694679
+fog_depth_end = 200.0
+adjustment_enabled = true
+adjustment_contrast = 1.12
+adjustment_saturation = 0.82

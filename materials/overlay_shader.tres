@@ -36,7 +36,7 @@ void fragment() {
 	vec2 base_uv = UV2;
 
 	vec4 albedo_tex = texture(texture_albedo, base_uv);
-	ALBEDO = albedo_tex.rgb;
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
 
 	float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
 	METALLIC = metallic_tex * metallic;
@@ -59,7 +59,7 @@ void fragment() {
 [resource]
 render_priority = 0
 shader = SubResource("Shader_uelo5")
-shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/texture_albedo = SubResource("ImageTexture_uelo5")
 shader_parameter/albedo_texture_size = Vector2i(512, 512)
 shader_parameter/point_size = 1.0000000149012

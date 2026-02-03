@@ -47,23 +47,10 @@ func proc_mouse_raycast():
 		
 		## Water Particles
 		water_particles.global_position = pos
-		
-		#water_particles.rotation = (pos - normal).normalized()
-		
-		var direction_global = (pos + normal).normalized()    
-		# 2. Create a Global Basis looking in that direction
-		# Basis.looking_at takes a DIRECTION, not a target position
-		var target_global_basis = Basis.looking_at(direction_global, Vector3.UP)
-		# 3. Convert to Local Space
-		var target_local_basis = target_global_basis
-		
-		var parent_global_basis = cleanable_object.global_basis
-		target_local_basis = parent_global_basis.inverse() * target_global_basis
-		
-		water_particles.basis = Basis(target_local_basis.get_rotation_quaternion())
-		
+
 		## Send to paint
 		var target =  %CleanableObject/Armchair
+		target.erase_dirt_from_global_pos(pos)
 		
 
 
