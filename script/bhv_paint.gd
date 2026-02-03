@@ -26,10 +26,10 @@ func _physics_process(delta):
 func proc_mouse_raycast():
 	# get the viewport mouse pos
 	var mousePos = get_viewport().get_mouse_position()
-	
-	# define the start of the ray	
+
+	# define the start of the ray
 	var rayOrigin = camera_3d.project_ray_origin(Vector2(mousePos.x, mousePos.y))
-	
+
 	# define end of the ray by taking the normal direction and multiplying that out by X units
 	var rayEnd = rayOrigin + camera_3d.project_ray_normal(mousePos) * ray_length
 	# get the current physics state
@@ -45,14 +45,14 @@ func proc_mouse_raycast():
 		var faceidx = intersection.get("face_index")
 		#print(pos)
 		debug_line(pos, pos + normal * 0.2)
-		
+
 		## Water Particles
 		water_particles.global_position = pos
 
 		## Send to paint
 		print(faceidx)
 		#cleanable_object.erase_dirt_from_face(pos, faceidx)
-		
+
 
 
 
@@ -61,18 +61,18 @@ func debug_line(pos1: Vector3, pos2: Vector3, color = Color.WHITE_SMOKE) -> Mesh
 	var mesh_instance := MeshInstance3D.new()
 	var immediate_mesh := ImmediateMesh.new()
 	var material := ORMMaterial3D.new()
-	
+
 	mesh_instance.mesh = immediate_mesh
 
 	immediate_mesh.surface_begin(Mesh.PRIMITIVE_LINES, material)
 	immediate_mesh.surface_add_vertex(pos1)
 	immediate_mesh.surface_add_vertex(pos2)
 	immediate_mesh.surface_end()
-	
+
 	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	material.albedo_color = color
-	
-	
+
+
 	get_tree().get_root().add_child(mesh_instance)
-	
+
 	return mesh_instance
