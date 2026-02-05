@@ -14,6 +14,8 @@ var mesh_data = MeshDataTool.new()
 var image : Image = Image.new()
 var imagetex : ImageTexture
 var brush_mask : Image = Image.new()
+
+var brush : Image
 var image_dims : Vector2
 
 func _onready_vars() -> void:
@@ -49,12 +51,7 @@ func _ready() -> void:
 	# We create an image that is fully transparent where the brush was white
 	#brush_mask = init_brush_img.get_image()
 	brush_mask.copy_from(init_brush_img)
-	
 	brush_mask.convert(Image.FORMAT_RGBA8)
-	
-	print(image.get_format())
-	print(imagetex.get_format())
-	print(brush_mask.get_format())
 	
 	for x in range(brush_mask.get_width()):
 		for y in range(brush_mask.get_height()):
@@ -62,7 +59,20 @@ func _ready() -> void:
 			# Set alpha to the inverse of brightness (white = 0 alpha)
 			# This makes the "brush" a patch of transparency
 			brush_mask.set_pixel(x, y, Color(0, 0, 0, 1.0 - p.r))
+	
+	# Create a solid source image that is completely transparent.
+	# When we blend this onto the dirt, it 'adds' transparency.
+	var bmdim := brush_mask.get_size()
+	brush = Image.create(bmdim.x, bmdim.y, false, Image.FORMAT_RGBA8)
+	brush.fill(Color(0, 0, 0, 0)) # Fully transparent source
 
+	# Your mask logic is fine, but make sure the white parts of your 
+	# brush texture result in alpha 1.0 in the mask to 'apply' the brush source.
+	for x in range(brush_mask.get_width()):
+		for y in range(brush_mask.get_height()):
+			var p = brush_mask.get_pixel(x, y)
+			# If your brush texture is white-on-black, use p.r directly
+			brush_mask.set_pixel(x, y, Color(1, 1, 1, 1.0 - (p.r * 1.2)))
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
@@ -71,9 +81,7 @@ func _input(event: InputEvent) -> void:
 			var rloc =  Vector2(randf(), randf())
 			erase_dirt(rloc)
 
-## pos: The UV coordinate (0.0 to 1.0) from a raycast or collision
 func erase_dirt(uv: Vector2) -> void:
-	# 1. Convert UV to absolute pixel coordinates
 	var img_size = image.get_size()
 	var pixel_pos = Vector2i(
 		floor(uv.x * img_size.x),
@@ -81,24 +89,20 @@ func erase_dirt(uv: Vector2) -> void:
 	)
 	
 	var brush_size = brush_mask.get_size()
-	
-	# 2. Center the brush on the pixel_pos
-	# (e.g., if brush is 16x16, top_left is pixel_pos - 8)
 	var top_left = pixel_pos - (brush_size / 2)
 	
-	# 3. Perform the blit
-	# Ensure image and brush_mask are still the same format (RGBA8)
+	# Use blend_rect_mask instead of blit_rect_mask
+	# This will use the brush_mask's alpha to determine the strength of the 'brush'
 	image.blit_rect_mask(
-		brush_mask, 
+		brush, 
 		brush_mask, 
 		Rect2i(Vector2i.ZERO, brush_size), 
 		top_left
 	)
 	
-	# 4. Push update to GPU
 	imagetex.update(image)
 
-#TODO
+
 func erase_dirt_from_face(hit_pos:Vector3, face_idx:int) -> void:
 	# 3. Get the indices of the 3 vertices making up the hit face
 	var v1_idx = mesh_data.get_face_vertex(face_idx, 0)

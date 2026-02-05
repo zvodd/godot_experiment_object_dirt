@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bn8qto3otcpch"]
+
+[ext_resource type="Script" uid="uid://cyenk78g0lmpy" path="res://script/bhv_paint.gd" id="1_43gtr"]
+[ext_resource type="Script" uid="uid://q5ilwr68goab" path="res://script/bhv_cleanable_holder.gd" id="2_ds1eq"]
+[ext_resource type="PackedScene" uid="uid://87r8ajuf5eoa" path="res://object/cleanables/pool_float.tscn" id="3_22e5a"]
+[ext_resource type="Script" uid="uid://df604skibtv6t" path="res://script/bhv_orbit_cam.gd" id="4_7c2lk"]
+[ext_resource type="PackedScene" uid="uid://da5ru5qcmjuug" path="res://object/particle.tscn" id="5_bnuwo"]
+
+[node name="CleaningSim" type="Node3D" unique_id=620886610]
+
+[node name="InteractivePaint" type="Node3D" parent="." unique_id=2012388700]
+script = ExtResource("1_43gtr")
+
+[node name="CleanableObject" type="Marker3D" parent="." unique_id=1476174301]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+script = ExtResource("2_ds1eq")
+
+[node name="PoolFloat" parent="CleanableObject" unique_id=1243150777 instance=ExtResource("3_22e5a")]
+transform = Transform3D(1, 0, 0, 0, -0.9975225, -0.070348434, 0, 0.070348434, -0.9975225, 0, 0, 0)
+
+[node name="Pivot" type="Node3D" parent="." unique_id=174749440]
+unique_name_in_owner = true
+script = ExtResource("4_7c2lk")
+
+[node name="Camera3D" type="Camera3D" parent="Pivot" unique_id=1108852774]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.1106546)
+
+[node name="WaterParticles" parent="." unique_id=1817565855 instance=ExtResource("5_bnuwo")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.358858, 0)
+visible = false

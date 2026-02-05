@@ -44,10 +44,10 @@ func proc_mouse_raycast():
 		var normal = intersection.get("normal")
 		var faceidx = intersection.get("face_index")
 		#print(pos)
-		debug_line(pos, pos + normal * 0.2)
+		#debug_line(pos, pos + normal * 0.2)
 
 		## Water Particles
-		water_particles.global_position = pos
+		#water_particles.global_position = pos
 
 		## Send to paint
 		cleanable_object.erase_dirt_from_face(pos, faceidx)

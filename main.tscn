@@ -1,16 +1,9 @@
 [gd_scene format=3 uid="uid://cw0tx88fwjrgl"]
 
-[ext_resource type="Script" uid="uid://cyenk78g0lmpy" path="res://script/bhv_paint.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://bn8qto3otcpch" path="res://cleaning_sim.tscn" id="2_0xm2m"]
 [ext_resource type="Environment" uid="uid://dri63rp7mm5yu" path="res://materials/env_hotpink_amazing.tres" id="2_lquwl"]
-[ext_resource type="Script" uid="uid://q5ilwr68goab" path="res://script/bhv_cleanable_holder.gd" id="3_7mycd"]
-[ext_resource type="Script" uid="uid://df604skibtv6t" path="res://script/bhv_orbit_cam.gd" id="3_h2yge"]
-[ext_resource type="PackedScene" uid="uid://da5ru5qcmjuug" path="res://object/particle.tscn" id="4_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://87r8ajuf5eoa" path="res://object/cleanables/pool_float.tscn" id="4_7mycd"]
 
 [node name="Main" type="Node3D" unique_id=1539786103]
-
-[node name="InteractivePaint" type="Node3D" parent="." unique_id=1364195981]
-script = ExtResource("1_0xm2m")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2142097458]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
@@ -18,26 +11,6 @@ shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=426892989]
 environment = ExtResource("2_lquwl")
-
-[node name="CleanableObject" type="Marker3D" parent="." unique_id=286317715]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
-script = ExtResource("3_7mycd")
-
-[node name="PoolFloat" parent="CleanableObject" unique_id=1243150777 instance=ExtResource("4_7mycd")]
-transform = Transform3D(1, 0, 0, 0, -0.9975225, -0.070348434, 0, 0.070348434, -0.9975225, 0, 0, 0)
-
-[node name="Pivot" type="Node3D" parent="." unique_id=376242374]
-unique_name_in_owner = true
-script = ExtResource("3_h2yge")
-
-[node name="Camera3D" type="Camera3D" parent="Pivot" unique_id=1915024707]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.1106546)
-
-[node name="WaterParticles" parent="." unique_id=1817565855 instance=ExtResource("4_1bvp3")]
-unique_name_in_owner = true
-visible = false
 
 [node name="Node" type="Node" parent="." unique_id=758712335]
 
@@ -64,3 +37,5 @@ size = Vector3(4.8911133, 0.805542, 1)
 [node name="CSGBox3D4" type="CSGBox3D" parent="Node" unique_id=1311284617]
 transform = Transform3D(-0.18828987, 0.9821135, 0, -0.86642945, -0.16611105, -0.4708579, -0.4624359, -0.08865777, 0.88220906, 7.729851, -0.097229004, -4.6300244)
 size = Vector3(4.8911133, 0.805542, 1)
+
+[node name="CleaningSim" parent="." unique_id=620886610 instance=ExtResource("2_0xm2m")]
